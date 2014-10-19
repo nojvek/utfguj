@@ -1,0 +1,279 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Viewer</title>
+	<meta name="author" content="nojvek">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+	<style type="text/css">
+
+	body{
+		padding: 20px;
+	}
+
+	a{
+		color: black;
+		cursor: pointer;
+	}
+
+	#viewer{
+		position: relative;
+		border: 1px solid #ddd;
+		height: 800px;
+		overflow: 	hidden;
+	}
+
+	.elem, .trim-rect{
+		font-size: 12px;
+		position: absolute;
+		border: 1px solid #faa;
+		display: block;
+		overflow: hidden;
+	}
+
+	.trim-rect{
+		border: 1px solid #afa;
+		pointer-events: none;
+	}
+
+	#rectHolder{
+		position: relative;
+	}
+
+	.text{
+		position: absolute;
+		bottom: 0px;
+	}
+
+	</style>
+
+	<script type="text/javascript">
+	var SCALE = 2;
+	var curPage = 0;
+	var pages = [];
+	var pageHeight = 0;
+	var trimRects = []
+	var $viewer = "";
+	var copiedText = "";
+
+	$(function(){
+		$viewer = $("#viewer");
+		$("#fileName").val("ekadashi");
+		loadFile();
+		loadTrimRects();
+	})
+
+
+	function loadFile(){
+		fileName = $("#fileName").val();
+		if (fileName == "") alert("Need fileName");
+
+		fileName = "pdfs/" + fileName + ".xml";
+
+		$.get(fileName, fileLoadedHandler);
+	}
+
+	function fileLoadedHandler(data){
+		pages = $(data).find("LTPage");
+		loadPage(curPage)
+	}
+
+	function loadPage(pageNum){
+		curPage = pageNum;
+		if (curPage < 0) curPage = 0;
+		if (curPage >= pages.length) curPage = pages.length - 1;
+
+		$("#pageNum").text(curPage + 1 + "/" + pages.length);
+		console.log(curPage);
+
+		$viewer.empty();
+		var $page = $(pages[curPage]);
+		var elems = $page.find("[bbox]")
+		var pageBBox = parseBBox($page.attr("bbox"), 0);
+		pageHeight = pageBBox.h;
+		applyBBox($viewer, pageBBox)
+
+		elems.each(function(index, elem){
+			var $elem = $(elem)
+			var bbox = parseBBox($elem.attr("bbox"), pageHeight);
+			var name = $elem.prop('nodeName');
+			var $newElem = $("<div class='" + name + " elem'/>");
+			applyBBox($newElem, bbox)
+
+			if($elem.children().length == 0 && $elem.text() != ""){
+				$textElem = $("<div class='text'/>");
+				$textElem.text($elem.text());
+				$viewer.append($newElem.append($textElem));
+			}
+		});
+	}
+
+	function loopPages(){
+		if ((curPage + 1)< pages.length){
+			loadPage(curPage + 1);
+			copyTextInRects();
+			requestAnimationFrame(loopPages);
+		}
+	}
+
+	function loadTrimRects(){
+		var bbox1 = parseBBox($("#rect1Input").val(), 0)
+		var bbox2 = parseBBox($("#rect2Input").val(), 0)
+		//console.log(bbox1, bbox2)
+		applyBBox($("#rect1"), bbox1);
+		applyBBox($("#rect2"), bbox2);
+		trimRects = [bbox1, bbox2]
+	}
+
+	function copyTextInRects(){
+		for(var i = 0; i< trimRects.length; ++i){
+			var rect = trimRects[i];
+			$viewer.find(".elem").each(function(index, elem){
+				var $elem = $(elem);
+				$elem.hide();
+				if(parseInt(elem.style.left) < rect.x) return;
+				if(parseInt(elem.style.top) < rect.y) return;
+				if(parseInt(elem.style.left) + parseInt(elem.style.width) > (rect.x + rect.w)) return;
+				if(parseInt(elem.style.top) + parseInt(elem.style.height) > (rect.y + rect.h)) return;
+
+				$elem.show()
+			});
+
+			var lines = sortElems($viewer.find(".elem:visible"));
+			console.log(lines);
+
+			copiedText += "//p" + curPage +  "r" + (i+1) +"\n";
+			text = "";
+			for(var j=0; j < lines.length; ++j){
+				for(var k=0; k < lines[j].length; ++k){
+					text += $(lines[j][k]).text()
+				}
+				text += "\n";
+			}
+			copiedText += text;
+		}
+	}
+
+	function sortElems(elems){
+		var lines = [];
+		var lastY = -10;
+		var diffTolerance = 5;
+
+		elems.sort(sortVertical);
+
+		elems.each(function(i, elem){
+			var curY = parseFloat(elem.style.top) + parseFloat(elem.style.height);
+			if (Math.abs(curY - lastY) < diffTolerance){
+				lines[lines.length -1].push(elem);
+			}else{
+				if(lines.length > 0) lines[lines.length -1].sort(sortHorizontal);
+				lines.push([elem])
+			}
+
+			lastY = curY;
+		})
+
+		return lines;
+	}
+
+	function sortVertical(a, b){
+		return (parseFloat(a.style.top) + parseFloat(a.style.height))
+		- (parseFloat(b.style.top) + parseFloat(b.style.height))
+	}
+
+	function sortHorizontal(a, b){
+		return (parseFloat(a.style.left) - parseFloat(b.style.left))
+	}
+
+	function parseBBox(bbox, pageHeight){
+		bbox = JSON.parse(bbox);
+		var box = {};
+		box.x = bbox[0] * SCALE;
+		box.y = bbox[1] * SCALE;
+		box.w = (bbox[2] * SCALE) - box.x;
+		box.h = (bbox[3] * SCALE) - box.y;
+		if(pageHeight){
+			box.y = pageHeight - box.y - box.h
+		}
+		return box;
+	}
+
+	function applyBBox($elem, box){
+		$elem.css({
+			left: box.x, top: box.y, width: box.w, height: box.h
+		});
+		return $elem;
+	}
+
+	var hueMap = {
+		lastHue: 0.0,
+		layer: 0.1,
+		group: 0.4,
+		psdimage: 0.8
+	};
+
+
+	function strToHue(str){
+		if (hueMap.hasOwnProperty(str)){
+			return hueMap[str];
+		}
+
+		hueMap["lastHue"] += 0.1;
+		hueMap["lastHue"] %= 1.0;
+		hueMap[str] = hueMap["lastHue"];
+
+		//console.log("strToHue", str, hueMap[str]);
+		return hueMap[str];
+	}
+
+	function hsv2rgba(h, s, v, a) {
+		var r, g, b, i, f, p, q, t;
+		if (h && s === undefined && v === undefined) {
+			s = h.s, v = h.v, h = h.h;
+		}
+
+		i = Math.floor(h * 6);
+		f = h * 6 - i;
+		p = v * (1 - s);
+		q = v * (1 - f * s);
+		t = v * (1 - (1 - f) * s);
+
+		switch (i % 6) {
+			case 0: r = v, g = t, b = p; break;
+			case 1: r = q, g = v, b = p; break;
+			case 2: r = p, g = v, b = t; break;
+			case 3: r = p, g = q, b = v; break;
+			case 4: r = t, g = p, b = v; break;
+			case 5: r = v, g = p, b = q; break;
+		}
+
+	    return "rgba(" + Math.floor(r * 255) + "," +  Math.floor(g * 255) + "," + Math.floor(b * 255) + "," + a + ")";
+	}
+
+
+
+	</script>
+
+</head>
+<body>
+	<div id="loadFileForm" class="form-inline">
+		<input id="fileName"></input>
+		<button onclick="loadFile()">Load</button>
+		<button onclick="loadPage(curPage -1)">&lt;</button>
+		<span id="pageNum"></span>
+		<button onclick="loadPage(curPage + 1)">&gt;</button>
+		<input oninput="loadTrimRects()" id="rect1Input" value="[65,105,350,550]"></input>
+		<input oninput="loadTrimRects()" id="rect2Input" value="[440,105,730,550]"></input>
+		<button onclick="loopPages()">Run Copy Loop</button>
+		<button onclick="copyTextInRects()">Copy Text</button>
+	</div>
+	<div id="rectHolder">
+		<div id="viewer">
+		</div>
+		<div id="rect1" class="trim-rect"></div>
+		<div id="rect2" class="trim-rect"></div>
+	</div>
+
+</body>
+</html>
