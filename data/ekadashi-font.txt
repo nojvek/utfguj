@@ -640,7 +640,7 @@ fu ƒúñk™tË™ku ðnk÷ku òuR™u hu. ÷k„e. 5
 
 …Ë – 3
 {kune nwt Œku ™xðh™u ðk™u,
-fu feÄe ðþ zku÷heÞu fk™u huT. {kune.
+fu feÄe ðþ zku÷heÞu fk™u hu. {kune.
 fu r[¥kzk{kt ÷k„e [xfe, fu ÷kufŒýe÷ßò …xfe;
 fu ™tË™k ™tË™ ‚kÚku yxfe hu. {kune. 1
 fu Sð Sð™u þwt …hýwt, fu su™u rþh W…h {hýwt;
@@ -915,14 +915,14 @@ nwt {kt Œ{kÁt ¼õŒ…ýwt, nrh yu{kt fkuR «fkh. yu ðh.
 «u{k™tË™e rð™rŒ, ‚kt¼¤òu ~Þk{ sYh. yu ðh.
 
 hk„ : fkVe …Ë - 1
-fk™wzk fuzu Vhðwt hu fkuRÚke ™ zhðwt. fk™wzk0
+fk™wzk fuzu Vhðwt hu fkuRÚke ™ zhðwt. fk™wzk.
 Ëqrhs™ ÷kuf Ëq¼ko»ký ƒku÷u, Œu nizu ™ð Ähðwt hu. fkuR.
 ‚„kt fwxwtƒe ‚hðu ‚t„kÚku, nuŒz÷wt …hnhðwt hu. fkuR.
 ‚t‚kheÚke ‚„…ý Œkuze, fk™fwtðhÚke fhðwt hu. fkuR.
 ƒúñk™tË fnu {™ f{o ð[™u, ðúsSð™S™u ðhðwthu. fkuR.
 
 …Ë - 2
-fk™wzk fuzu òðwt hu, ‚{S Awt ykðwt - fk™wzk0
+fk™wzk fuzu òðwt hu, ‚{S Awt ykðwt - fk™wzk.
 {kun™™wt {uýwt {khu {kÚku, fkuR Ëe’ ƒeò™e ™rn fk’ðwt hu. ‚{.
 [kiË ÷kuf{kt ‚ðuo yƒ¤k, Œu™u ðhe™u ¾kuxe Úkkðwthu. ‚{.
 ðheyu Œku ™x™k„h ðheyu, y¾tz yuðkŒ™ Akðwthu. ‚{.
@@ -1178,7 +1178,7 @@ Rïh WËÞ ÚkÞk hu, f¤e{kt fhðk s™™kt fks. 8
 yu …Ë þe¾þu hu, „kþu ‚kt¼¤þu fhe ÃÞkh;
 «u{k™tË™ku hu, Mðk{e ÷uþu Œu™e ‚kh. 9
 
-hk„ :- „hƒe …Ë - 1
+hk„ : „hƒe …Ë - 1
 ÷xfk¤k Œkhu ÷xfuhu, ÷uh¾zk nwt ÷ku¼kýe;
 ðkt‚÷ze fuhu fxfu hu, r[¥kzkt ™u ÷eÄwt Œkýe. 1
 Aku„r÷Þwt ŒkÁt Au÷k hu, ykðe yxõÞwt ytŒh{kt;
@@ -1244,7 +1244,7 @@ nwt Œku Awt ½ýe ™„ýe ™kh, ŒkuÞ Œ{khe hu;
 {khu y{]Œ ð»Þko {un, ÚkR y™whk„e hu;
 {khe Œ{ ‚t„ rºk¼wð™hkÞ, ÷„™e ÷k„e hu. 5
 {khk …wÛÞŒýku ™rn …kh, Œ{ ‚t„ {¤Œkt hu;
-{wõŒk™tË fnu {nkhks, ytŒh x¤Œkt hu 6
+{wõŒk™tË fnu {nkhks, ytŒh x¤Œkt hu. 6
 
 …Ë – 3
 {kÁt {™„{Œwt fhe {kð, ‚w¾zwt ËeÄwt hu;
@@ -1292,7 +1292,7 @@ Au÷ Aƒe÷k {kÁt r[¥kzwt hu, Œkhe …k½÷ze{kt «kuÞwt. {kun™.
 ¼k÷ rŒ÷f ‚kuÞk{ýwt hu, {eXe {w¾zkt fuhe ðkýe;
 fwtz¤eyu hu Œkhu fk™S hu, {kÁt {™zwt ÷eÄwt Œkýe. {kun™.
 ytƒh yk¼q»ký yt„{kt hu, r™íÞ …nuhe™u Ëþo™ Ëuðwt;
-ƒúñk™tË™k Ônk÷{k hu, ðnk÷k ƒeswt ™ne Œ{ suðwt. {kun.
+ƒúñk™tË™k Ônk÷{k hu, ðnk÷k ƒeswt ™ne Œ{ suðwt. {kun™.
 
 …Ë - 3
 {khk ~Þk{¤eÞk ‚w¾Äk{, {kune Awt {hf÷zu;
@@ -1388,7 +1388,7 @@ fkuý {k™u s„™e hu, fu ¾kuxe ðkýe™u. 3
 Œ{ ‚kÚku òuze hu, fu ‚kiÚke Œkuze™u;
 Ëwhes™ þwt fhþu hu, fu {w¾zkt {kuze™u. 5
 rþh ‚kxu ‚{Shu, fu ƒktæÞwt Au ƒu÷wt;
-ƒúñk™tË™k ðk÷k hu, fu Œ{™u fu{ {u÷wt 6
+ƒúñk™tË™k ðk÷k hu, fu Œ{™u fu{ {u÷wt. 6
 
 …Ë - 3
 ‚{S™u ‚Ìkku hu, fu nrh Œkhku Auzku;
@@ -1477,18 +1477,18 @@ r[¥k …kŒr¤Þk{kt «kuðwt hu. ‚wý ƒu™e. 5
 hk„ : „hƒe …Ë - 1
 hu ‚„…ý nrhðh™wt ‚k[wt, ƒeswt ‚ðuo ûký¼t„wh fk[wt, hu ‚„.
 hu ‚ki ‚kÚku «erŒ xk¤e, hu ¼køÞwt {™ r{ÚÞk ¼k¤e;
-Au ðhðk suðk yuf ð™{k¤e. hu-‚„. 1
+Au ðhðk suðk yuf ð™{k¤e. hu ‚„. 1
 hu ÂMÚkh ™rn ykðhËk Úkkuze, hu ŒwåA òýe ykþk Œkuze;
-{U s„™k Sð™ ‚kÚku òuze. hu-‚„. 2
+{U s„™k Sð™ ‚kÚku òuze. hu ‚„. 2
 hu Vku„x fuhk ™ð Vheyu, hu …h ½h …kýe þwt ¼heyu;
-hu ðheyu Œku ™xðh™u ðheyu. hu-‚„. 3
+hu ðheyu Œku ™xðh™u ðheyu. hu ‚„. 3
 hu ¼qÄh ¼uxâk ¼Þ ¼køÞku, hu ‚nw ‚kÚku Œkuzâku Äk„ku;
-yu hr‚f ht„e÷kÚke ht„ ÷k„ku. hu-‚„. 4
+yu hr‚f ht„e÷kÚke ht„ ÷k„ku. hu ‚„. 4
 hu yuðwt òýe™u ‚„…ý feÄwt, hu {nuýwt Œu rþh W…h ÷eÄwt;
-ƒúñk™tË™wt fkhs ‚eÄwt. hu-‚„. 5
+ƒúñk™tË™wt fkhs ‚eÄwt. hu ‚„. 5
 
 …Ë – 2
-hu ÷„™e Œku nrhðhÚke ÷k„e, {U Œ™ Ä™™e ykþk íÞk„e. hu÷0
+hu ÷„™e Œku nrhðhÚke ÷k„e, {U Œ™ Ä™™e ykþk íÞk„e. hu÷
 hu ðkŒ fnwt ‚wý ‚knu÷e, hu ƒr¤ÞkuS feÄk ƒu÷e;
 {kÚkwt …nu÷wt …k‚t„{kt {u÷e. hu ÷„™e. 1
 hu ™ zÁt nwt ÷kufŒýe ÷ksu, hu rþh W…h r„rhÄh „ksu;
@@ -1501,7 +1501,7 @@ hu {hòËk s„™e {uxe, hu ƒktÄe {U «u{ Œýe …uxe;
 ƒúñk™tË™ku ðnk÷ku ¼uxe. hu ÷„™e. 5
 
 …Ë – 3
-hu rþh ‚kxu ™xðh™u ðheyu, hu …kAkt Œu …„÷kt ™ð¼heyu. hu
+hu rþh ‚kxu ™xðh™u ðheyu, hu …kAkt Œu …„÷kt ™ð¼heyu. hu rþh.
 hu ytŒháÂü fhe ¾kuéÞwt, hu znk…ý ÍkÍwt ™ð zkuéÞwt;
 yu nrh ‚kÁt {kÚkwt ½kuéÞwt. hu rþh. 1
 hu ‚{ßÞk rð™k ™ð ™e‚heyu, hu hý{æÞu sR™u ™ð zheyu;
@@ -1686,7 +1686,7 @@ ykðu „kÞwt fuzu ™kÚk, y÷kirff „kðŒk hu ÷ku÷;
 
 hk„ : „hƒe …Ë - 1
 ‚s™e ©eS {ws™u ‚kt¼Þko hu,
-nizu nh¾ hÌkku W¼hkÞ. ‚s™e0
+nizu nh¾ hÌkku W¼hkÞ. ‚s™e.
 ™uýu ykt‚w™e Äkhk ðnuhu,
 rðhnu {™zwt ÔÞkfw¤ ÚkkÞ. ‚s™e. 1
 ‚wtËh {qŠŒ ©e {nkhks™ehu,

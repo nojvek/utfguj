@@ -1,12 +1,15 @@
 from __future__ import print_function
 from pprint import pprint
 from difflib import SequenceMatcher
+from sets import Set
 import operator
 import codecs
 import sys
 import json
 
 mappingTable = None
+wordCache = {}
+charCache = {}
 mappingRotates = [114, 174]
 
 totalWrong = 0
@@ -32,8 +35,13 @@ def arrdot(arr):
 def dotarr(chrs):
 	return map(int, chrs.split("."))
 
-def utfstr(arrs):
+def utfstr(arrs, labels = None):
 	strarr = [" ".join(map(arrchr, arr)) for arr in arrs]
+
+	for i in xrange(len(strarr)):
+		if labels and labels[i] != "":
+			strarr[i] = labels[i] + ": " + strarr[i]
+
 	return "\n".join(strarr)
 
 # inputs are strord mapped array of arrays
@@ -65,6 +73,11 @@ def applyMap(srcArr):
 	transArr = []
 	lookAhead = 3
 	numLetters = len(srcArr)
+
+	if arrdot(srcArr) in wordCache:
+		return dotarr(wordCache[arrdot(srcArr)])
+	else:
+		return srcArr[:]
 
 	start = 0
 	while start < numLetters:
@@ -120,12 +133,50 @@ def mapDirect(tple):
 		for i in xrange(len(srcArr)):
 			addMapping(str(srcArr[i]), str(destArr[i]))
 
+def mapWord(tple):
+	global charCache
+	srcArr, destArr = tple
+	wordCache[arrdot(srcArr)] = arrdot(destArr)
+
+	for char in srcArr:
+		appearsIn = ("".join(map(unichr, srcArr))) + " -> " + ("".join(map(unichr, destArr)))
+
+		if char in charCache :
+			charCache[char].add(appearsIn)
+		else:
+			charCache[char] = Set([appearsIn])
+
+def printWordCache():
+	showLimit = 20
+
+	for char, wordSet in sorted(charCache.items()):
+		print("\n",char, unichr(char), len(wordSet), file=logFile)
+
+		for i, word in enumerate(wordSet):
+			if i > showLimit:
+				print("\t...", file=logFile)
+				break
+
+			print("\t", word, file=logFile)
+
+def computeCharMappings():
+	for word in wordCache.keys():
+		srcArr = dotarr(word)
+		destArr = dotarr(wordCache[word])
+
+		if len(srcArr) == len(destArr):
+			mapDirect((srcArr, destArr))
+
+	for word in mappingTable.keys():
+		srcArr = dotarr(word)
+		destKeys = mappingTable[word].keys()
+
+		if len(destKeys) > 1:
+			del mappingTable[word]
 
 def mapDiff(tple):
 	srcArr, destArr, transArr = tple
 	opcodes = SequenceMatcher(None, transArr, destArr).get_opcodes()
-
-	#print("opcodes", opcodes)
 
 	for op in opcodes:
 		src = srcArr[op[1]:op[2]]
@@ -174,7 +225,7 @@ def getScore(tple):
 def trainTranslator(srcPath, destPath, mappingPath):
 	global mappingTable
 
-	mappingTable = json.loads(open(mappingPath,'r').read().replace("'","\""))
+	mappingTable = {} #json.loads(open(mappingPath,'r').read().replace("'","\""))
 	srcLines = map(unicode.strip, open(srcPath,'r').read().strip().decode('utf-8').split("\n"))
 	destLines = map(unicode.strip, open(destPath,'r').read().strip().decode('utf-8').split("\n"))
 
@@ -187,7 +238,6 @@ def trainTranslator(srcPath, destPath, mappingPath):
 	trans1Lines = [[]] * lineCount
 	transLines = [[]] * lineCount
 	scoreLines = [[]] * lineCount
-
 
 	# compute direct mappings
 	for i in xrange(lineCount):
@@ -202,27 +252,33 @@ def trainTranslator(srcPath, destPath, mappingPath):
 
 		assert(len(srcLines[i]) == len(destLines[i]))
 
-		debug = (True if i == 4 else False)
-		trans1Lines[i] = map(applyMap, srcLines[i])
-		map(mapDiff, zip(srcLines[i], destLines[i], trans1Lines[i]))
+		# trans1Lines[i] = map(applyMap, srcLines[i])
+		map(mapWord, zip(srcLines[i], destLines[i]))
 
+	computeCharMappings();
 
 	for i in xrange(lineCount):
-		log("\n" + str(i))
 
 		transLines[i] = map(applyMap, srcLines[i])
 		scoreLines[i] = map(getScore, zip(destLines[i], transLines[i]))
 
 		if unichr(2790) in utfstr([scoreLines[i]]): #only error lines
-			log(utfstr([srcLines[i], destLines[i], trans1Lines[i], transLines[i], scoreLines[i]]))
-			log(utfdebug([srcLines[i], destLines[i], trans1Lines[i], transLines[i], scoreLines[i]]))
+			log("\n" + str(i + 1))
+			#log(utfstr([srcLines[i], destLines[i], trans1Lines[i], transLines[i], scoreLines[i]]))
+			#log(utfdebug([srcLines[i], destLines[i], trans1Lines[i], transLines[i], scoreLines[i]]))
+			log(utfstr([srcLines[i], destLines[i], transLines[i], scoreLines[i]], ["src","dst", "trs", "scr"]))
+			log(utfdebug([srcLines[i], destLines[i], transLines[i], scoreLines[i]]))
 
 		#return
 
-	pprint(mappingTable)
-	pprint(mappingTable, logFile)
+	# pprint(mappingTable)
+	#pprint(mappingTable, logFile)
+	#pprint(wordCache, logFile)
+	printWordCache()
 
-	log("Score: " + str(100 - (totalWrong * 100.0 /totalChars)))
+	totalRight = totalChars- totalWrong
+	log("Score: " + str(round(totalRight * 100.0 /totalChars, 2)))
+	log("Errors: " + str(totalWrong) + "/" + str(totalChars))
 
 
 def applyTranslator(srcPath, destPath, mappingPath):
